@@ -1,0 +1,15 @@
+{
+  "name": "js-trivia",
+  "version": "1.0.0",
+  "description": "JavaScript trivia chatbot embedded in a web application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ruslan Farutdinov",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3"
+  }
+}
