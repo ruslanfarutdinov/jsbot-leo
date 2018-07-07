@@ -2,6 +2,7 @@
   "name": "js-trivia",
   "version": "1.0.0",
   "description": "JavaScript trivia chatbot embedded in a web application",
+  "repository": "https://github.com/ruslanfarutdinov/js-trivia-bot.git",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
