@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Human from './Human.jsx';
 import Bot from './Bot.jsx';
+import axios from 'axios';
 
 const MainWrapper = styled.div`
 	width: 400px;
@@ -28,8 +29,8 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			value: '',
-			human: ['Hello from human'],
-			bot: ['Hello from bot'],
+			human: [],
+			bot: [],
 		};
 
 		this.handleInputChange = this.handleInputChange.bind(this);
@@ -44,10 +45,24 @@ class App extends React.Component {
 
 	handleHumanSubmit(event) {
 		if (event.keyCode === 13) {
-			this.state.human.push(this.state.value);
+			axios.get(`/dialogflow/${this.state.value}`)
+				.then((response) => {
+					console.log(response.data.queryResult.fulfillmentText);
+					const bot = this.state.bot;
+					bot.push(response.data.queryResult.fulfillmentText);
+					this.setState({
+						bot: bot,
+					});
+				})
+				.catch((error) => {
+					console.log(`Error sending a get request: ${error}`);
+				});
+
+			const human = this.state.human;
+			human.push(this.state.value);
 			this.setState({
 				value: '',
-				human: this.state.human,
+				human: human,
 			})
 	    event.preventDefault();
 		}
@@ -58,8 +73,8 @@ class App extends React.Component {
 		return (
 			<MainWrapper>
 				<Header>Chat with Leo</Header>
-				{this.state.bot.map((message) => <Bot message={message}/>)}
-				{this.state.human.map((message) => <Human message={message}/>)}
+				{this.state.bot.map((message) => <Bot message={message} key={message}/>)}
+				
 				<form>
 					<Input type="text" placeholder="Say hi..." value={this.state.value} onChange={this.handleInputChange} onKeyDown={this.handleHumanSubmit} />
 				</form> 

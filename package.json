@@ -12,6 +12,7 @@
   "author": "Ruslan Farutdinov",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "dialogflow": "^0.5.0",
     "express": "^4.16.3",
