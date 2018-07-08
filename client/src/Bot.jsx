@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Message = styled.div`
+	width: 300px;
 	align-self: flex-end;
 	color: #944743;
   background: papayawhip;

@@ -29,8 +29,7 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			value: '',
-			human: [],
-			bot: [],
+			message: [],
 		};
 
 		this.handleInputChange = this.handleInputChange.bind(this);
@@ -48,21 +47,21 @@ class App extends React.Component {
 			axios.get(`/dialogflow/${this.state.value}`)
 				.then((response) => {
 					console.log(response.data.queryResult.fulfillmentText);
-					const bot = this.state.bot;
-					bot.push(response.data.queryResult.fulfillmentText);
+					const message = this.state.message;
+					message.push([response.data.queryResult.fulfillmentText, 'bot']);
 					this.setState({
-						bot: bot,
+						message: message,
 					});
 				})
 				.catch((error) => {
 					console.log(`Error sending a get request: ${error}`);
 				});
 
-			const human = this.state.human;
-			human.push(this.state.value);
+			const message = this.state.message;
+			message.push([this.state.value, 'human']);
 			this.setState({
 				value: '',
-				human: human,
+				message: message,
 			})
 	    event.preventDefault();
 		}
@@ -73,8 +72,13 @@ class App extends React.Component {
 		return (
 			<MainWrapper>
 				<Header>Chat with Leo</Header>
-				{this.state.bot.map((message) => <Bot message={message} key={message}/>)}
-				
+				{this.state.message.map((tuple) => {
+					if (tuple[1] === 'human') {
+						return <Human message={tuple[0]} key={tuple[0]}/>
+					} else {
+						return <Bot message={tuple[0]} key={tuple[0]}/>
+					}
+				})}
 				<form>
 					<Input type="text" placeholder="Say hi..." value={this.state.value} onChange={this.handleInputChange} onKeyDown={this.handleHumanSubmit} />
 				</form> 
