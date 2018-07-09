@@ -5,7 +5,7 @@ const Message = styled.div`
 	width: 300px;
 	align-self: flex-end;
 	color: #944743;
-  background: papayawhip;
+  background: #F5F5DC;
   border: none;
   border-radius: 5px;
   padding: 0.5em;

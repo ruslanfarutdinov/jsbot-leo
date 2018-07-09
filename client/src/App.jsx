@@ -13,13 +13,16 @@ const MainWrapper = styled.div`
 
 const Header = styled.h1`
 	color: #944743;
+	padding: 2px;
+	border: 1px solid #944743;
+	border-radius: 5px;
 `;
 
 const Input = styled.input`
   padding: 0.5em;
   margin: 3em;
   color: #944743;
-  background: papayawhip;
+  background: #F5F5DC;
   border: none;
   border-radius: 3px;
 `;
