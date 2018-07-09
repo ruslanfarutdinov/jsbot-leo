@@ -8,7 +8,7 @@ const languageCode = 'en-US';
  
 // Instantiate a DialogFlow client.
 const sessionClient = new dialogflow.SessionsClient({
-	keyFilename: path.join(__dirname, '/../config/OscarsTrivia-2e82403af609.json'),
+	keyFilename: path.join(__dirname, '/../config/OscarsTrivia-4fea9e036b88.json'),
 });
  
 // Define session path
