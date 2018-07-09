@@ -46,7 +46,6 @@ class App extends React.Component {
 		if (event.keyCode === 13) {
 			axios.get(`/dialogflow/${this.state.value}`)
 				.then((response) => {
-					console.log(response.data.queryResult.fulfillmentText);
 					const message = this.state.message;
 					message.push([response.data.queryResult.fulfillmentText, 'bot']);
 					this.setState({

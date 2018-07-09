@@ -1,3 +1,6 @@
-node_modules
 client/public/dist
 config
+/node_modules
+npm-debug.log
+.DS_Store
+/*.env

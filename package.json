@@ -7,7 +7,7 @@
   "scripts": {
     "react-dev": "webpack -d --watch",
     "server-dev": "nodemon server/index.js",
-    "start": "node server/index.js"
+    "start": "webpack && node server/index.js"
   },
   "author": "Ruslan Farutdinov",
   "license": "ISC",
@@ -32,5 +32,8 @@
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.4"
+  },
+  "engines": {
+    "node": "8.9.1"
   }
 }
