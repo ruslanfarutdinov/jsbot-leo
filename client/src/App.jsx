@@ -74,11 +74,11 @@ class App extends React.Component {
 		return (
 			<MainWrapper>
 				<Header>Chat with Leo</Header>
-				{this.state.message.map((tuple) => {
+				{this.state.message.map((tuple, i) => {
 					if (tuple[1] === 'human') {
-						return <Human message={tuple[0]} key={tuple[0]}/>
+						return <Human message={tuple[0]} key={i}/>
 					} else {
-						return <Bot message={tuple[0]} key={tuple[0]}/>
+						return <Bot message={tuple[0]} key={i}/>
 					}
 				})}
 				<form>

@@ -7,8 +7,8 @@ const Message = styled.div`
   background: #F5F5DC;
   border: none;
   border-radius: 5px;
-  padding: 0.5em;
-  margin: 0.5em;
+  padding: 8px;
+  margin: 8px;
 `;
 
 const Human = ({ message }) => (
