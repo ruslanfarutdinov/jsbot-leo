@@ -70,6 +70,10 @@ class App extends React.Component {
 
 	}
 
+	handleButtonSubmit() {
+		
+	}
+
 	render() {
 		return (
 			<MainWrapper>
