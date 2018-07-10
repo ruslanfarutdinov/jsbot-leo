@@ -37,6 +37,7 @@ class App extends React.Component {
 
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleHumanSubmit = this.handleHumanSubmit.bind(this);
+		this.handleButtonSubmit = this.handleButtonSubmit.bind(this);
 	}
 
 	handleInputChange(event) {
@@ -70,8 +71,37 @@ class App extends React.Component {
 
 	}
 
-	handleButtonSubmit() {
-		
+	handleButtonSubmit(key, answer) {
+		let choice = '';
+		if (key === 0) {
+			choice = 'A';
+		} else if (key === 1) {
+			choice = 'B';
+		} else if (key === 2) {
+			choice = 'C';
+		} else if (key === 3) {
+			choice = 'D';
+		}
+
+		axios.get(`/dialogflow/${choice}`)
+			.then((response) => {
+				const message = this.state.message;
+				message.push([response.data.queryResult.fulfillmentText, 'bot']);
+				this.setState({
+					message: message,
+				});
+			})
+			.catch((error) => {
+				console.log(`Error sending a get request: ${error}`);
+			});
+
+		const message = this.state.message;
+		message.push([answer, 'human']);
+		this.setState({
+			value: '',
+			message: message,
+		})
+
 	}
 
 	render() {
@@ -82,7 +112,7 @@ class App extends React.Component {
 					if (tuple[1] === 'human') {
 						return <Human message={tuple[0]} key={i}/>
 					} else {
-						return <Bot message={tuple[0]} key={i}/>
+						return <Bot handleButtonSubmit={this.handleButtonSubmit} message={tuple[0]} key={i}/>
 					}
 				})}
 				<form>

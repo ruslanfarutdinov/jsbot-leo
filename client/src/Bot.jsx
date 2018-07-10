@@ -20,7 +20,7 @@ const Message = styled.div`
   margin: 8px;
 `;
 
-const Bot = ({ message }) => {
+const Bot = ({ message, handleButtonSubmit }) => {
 	const answerIndex = message.indexOf('A:');
 	let allAnswersStr = ''; 
 	let allAnswersArr = []; 
@@ -45,7 +45,7 @@ const Bot = ({ message }) => {
 			<Message>
 				<span>{message}</span>
 			</Message>
-			{allAnswersArr.map((possibleAnswer, i) => <PossibleAnswer possibleAnswer={possibleAnswer}  key={i}/>)}
+			{allAnswersArr.map((possibleAnswer, i) => <PossibleAnswer handleButtonSubmit={handleButtonSubmit} possibleAnswer={possibleAnswer} key={i} id={i}/>)}
 		</Wrapper>
 	);
 }

@@ -13,8 +13,8 @@ const Answer = styled.button`
 `;
 
 
-const PossibleAnswer = ({ possibleAnswer }) => (
-	<Answer>{possibleAnswer}</Answer>
+const PossibleAnswer = ({ possibleAnswer, id, handleButtonSubmit }) => (
+	<Answer onClick={handleButtonSubmit.bind(null, id, possibleAnswer)}>{possibleAnswer}</Answer>
 );
 
 export default PossibleAnswer;
