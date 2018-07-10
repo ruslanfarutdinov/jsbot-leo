@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Message = styled.div`
+	max-width: 300px;
 	align-self: flex-start;
 	color: #944743;
   background: #F5F5DC;
@@ -12,9 +13,9 @@ const Message = styled.div`
 `;
 
 const Human = ({ message }) => (
-	<Message>
-		<span>{message}</span>
-	</Message>
+		<Message>
+			<span>{message}</span>
+		</Message>
 );
 
 

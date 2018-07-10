@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 `;
 
 const Message = styled.div`
-	width: 300px;
+	max-width: 300px;
 	align-self: flex-end;
 	color: #944743;
   background: #F5F5DC;
