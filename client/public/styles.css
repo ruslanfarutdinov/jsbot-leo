@@ -20,3 +20,11 @@ body, #root {
   opacity: 1;
   transition: all 500ms ease-in-out;
 }
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+}

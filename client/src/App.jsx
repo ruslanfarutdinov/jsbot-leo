@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Human from './Human.jsx';
 import Bot from './Bot.jsx';
+import Score from './Score.jsx'
 import axios from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
@@ -13,14 +14,14 @@ const MainWrapper = styled.div`
 const WrapperLeft = styled.div`
   width: 30%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   background-color: #DFDBE5;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%239C92AC' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 `;
 
 const WrapperRight = styled.div`
   width: 70%;
-  overflow-y: auto;
+  overflow: auto;
 `;
   
 const ContentWrapper = styled.div`
@@ -36,13 +37,14 @@ const Messages = styled.div`
 `;
 
 const Header = styled.h1`
-  margin: auto;
+  margin: 150px auto 10px auto;
   height: fit-content;
 	color: #944743;
 	padding: 0 0.5em 0 0.5em;
 	border: 1px solid #944743;
   border-radius: 5px;
   font-family: 'Pacifico', cursive;
+  
 `;
 
 const Form = styled.form`
@@ -68,6 +70,8 @@ class App extends React.Component {
 			value: '',
       message: [],
       firstMsg: true,
+      correct: 0,
+      total: 0,
 		};
 
 		this.handleInputChange = this.handleInputChange.bind(this);
@@ -85,11 +89,24 @@ class App extends React.Component {
 		if (event.keyCode === 13) {
 			axios.get(`/dialogflow/${this.state.value}`)
 				.then((response) => {
-					const message = this.state.message;
-					message.push([response.data.queryResult.fulfillmentText, 'bot']);
-					this.setState({
-						message: message,
-					});
+          const message = this.state.message;
+          message.push([response.data.queryResult.fulfillmentText, 'bot']);
+          if (response.data.queryResult.webhookSource === 'wrong') {
+            this.setState({
+              message: message,
+              total: this.state.total + 1,
+            });
+          } else if (response.data.queryResult.webhookSource === 'correct') {
+            this.setState({
+              message: message,
+              correct: this.state.correct + 1,
+              total: this.state.total + 1,
+            });
+          } else {
+            this.setState({
+              message: message,
+            });
+          }
 				})
 				.catch((error) => {
 					console.log(`Error sending a get request: ${error}`);
@@ -125,11 +142,24 @@ class App extends React.Component {
 
 		axios.get(`/dialogflow/${choice}`)
 			.then((response) => {
-				const message = this.state.message;
+        const message = this.state.message;
 				message.push([response.data.queryResult.fulfillmentText, 'bot']);
-				this.setState({
-					message: message,
-				});
+				if (response.data.queryResult.webhookSource === 'wrong') {
+          this.setState({
+            message: message,
+            total: this.state.total + 1,
+          });
+        } else if (response.data.queryResult.webhookSource === 'correct') {
+          this.setState({
+            message: message,
+            correct: this.state.correct + 1,
+            total: this.state.total + 1,
+          });
+        } else {
+          this.setState({
+            message: message,
+          });
+        }
 			})
 			.catch((error) => {
 				console.log(`Error sending a get request: ${error}`);
@@ -153,6 +183,7 @@ class App extends React.Component {
 			<MainWrapper>
         <WrapperLeft>
 				  <Header>Learn with Leo</Header>
+          <Score correct={this.state.correct} total={this.state.total} />
         </WrapperLeft> 
         <WrapperRight>
           <ContentWrapper>
@@ -167,7 +198,7 @@ class App extends React.Component {
                   if (tuple[1] === 'human') {
                     return (
                       <CSSTransition
-                        key={tuple[0]}
+                        key={i}
                         timeout={500}
                         classNames="fade"
                       >
@@ -177,13 +208,13 @@ class App extends React.Component {
                   } else {
                     return (
                       <CSSTransition
-                        key={tuple[0]}
+                        key={i}
                         timeout={500}
                         classNames="fade"
                       >
                         <Bot handleButtonSubmit={this.handleButtonSubmit} message={tuple[0]} key={tuple[0]}/>
                       </CSSTransition>
-                  )
+                    )
                   }
                 })}
               </TransitionGroup>
