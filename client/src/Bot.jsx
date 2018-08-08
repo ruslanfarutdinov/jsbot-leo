@@ -13,11 +13,12 @@ const Message = styled.div`
 	max-width: 300px;
 	align-self: flex-end;
 	color: #944743;
-  background: #F5F5DC;
+  background: #F1DEDC;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 8px;
   margin: 8px;
+  font-family: 'Indie Flower', cursive;
 `;
 
 const Bot = ({ message, handleButtonSubmit }) => {
