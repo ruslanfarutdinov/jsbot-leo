@@ -1,0 +1,30 @@
+html {
+  height: 100%;
+}
+
+body, #root {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+*:focus {
+  outline: none;
+}
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: all 500ms ease-in-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+}
